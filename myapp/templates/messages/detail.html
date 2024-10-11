@@ -1,0 +1,58 @@
+{% extends 'admin-dashboard/base.html' %}
+{% load static %}
+
+{% block title %}訊息詳情{% endblock %}
+
+{% block content %}
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content mailbox-content">
+                    <div class="file-manager">
+                        <a class="btn btn-block btn-primary compose-mail" href="{% url 'compose_message' %}">撰寫新訊息</a>
+                        <div class="space-25"></div>
+                        <h5>資料夾</h5>
+                        <ul class="folder-list m-b-md" style="padding: 0">
+                            <li><a href="{% url 'inbox' %}"> <i class="fa fa-inbox "></i> 收件匣 </a></li>
+                            <li><a href="{% url 'sent_messages' %}"> <i class="fa fa-envelope-o"></i> 已發送</a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 animated fadeInRight">
+            <div class="mail-box-header">
+                <h2>查看訊息</h2>
+            </div>
+            <div class="mail-box">
+                <div class="mail-body">
+                    <h3>{{ message.subject }}</h3>
+                    <p>
+                        <strong>寄件人：</strong> {{ message.sender.username }} &lt;{{ message.sender.email }}&gt;<br>
+                        <strong>收件人：</strong> {{ message.recipient.username }} &lt;{{ message.recipient.email }}&gt;<br>
+                        <strong>時間：</strong> {{ message.created_at|date:"Y-m-d H:i" }}
+                    </p>
+                </div>
+                <div class="mail-text h-200">
+                    {% if message.quoted_message %}
+                    <blockquote>
+                        {{ message.quoted_message.content|safe }}
+                        <footer>引用自 {{ message.quoted_message.sender.username }} 於 {{ message.quoted_message.created_at|date:"Y-m-d H:i" }}</footer>
+                    </blockquote>
+                    {% endif %}
+                    {{ message.content|safe }}
+                </div>
+                <div class="mail-body text-right tooltip-demo">
+                    <a class="btn btn-sm btn-white" href="{% url 'compose_message' %}?reply_to={{ message.id }}&quote=true"><i class="fa fa-reply"></i> 引用回覆</a>
+                    <a class="btn btn-sm btn-white" href="{% url 'compose_message' %}?reply_to={{ message.id }}"><i class="fa fa-reply"></i> 回覆</a>
+                    <a class="btn btn-sm btn-white" href="{% url 'inbox' %}"><i class="fa fa-arrow-left"></i> 返回</a>
+                    <a class="btn btn-sm btn-danger" href="{% url 'delete_message' message.id %}" onclick="return confirm('確定要刪除這條訊息嗎？');"><i class="fa fa-trash"></i> 刪除</a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

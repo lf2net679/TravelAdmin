@@ -1,0 +1,58 @@
+{% extends 'admin-dashboard/base.html' %}
+{% load static %}
+
+{% block title %}撰寫新訊息{% endblock %}
+
+{% block content %}
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-3">
+            <!-- 左側導航保持不變 -->
+        </div>
+        <div class="col-lg-9 animated fadeInRight">
+            <div class="mail-box-header">
+                <h2>撰寫新訊息</h2>
+            </div>
+            <div class="mail-box">
+                <div class="mail-body">
+                    <form method="post" class="form-horizontal">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">收件人：</label>
+                            <div class="col-sm-10">
+                                {{ form.recipient_email }}
+                                {% if form.recipient_email.errors %}
+                                    <span class="help-block m-b-none text-danger">{{ form.recipient_email.errors.0 }}</span>
+                                {% endif %}
+                                <span class="help-block">輸入 "管理員" 可發送給所有管理員，或輸入特定用戶的電子郵件地址</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">主旨：</label>
+                            <div class="col-sm-10">
+                                {{ form.subject }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">內容：</label>
+                            <div class="col-sm-10">
+                                {{ form.content }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-10 col-sm-offset-2">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-reply"></i> 發送</button>
+                                <a href="{% url 'inbox' %}" class="btn btn-white"><i class="fa fa-times"></i> 取消</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{{ form.media.js }}
+{% endblock %}

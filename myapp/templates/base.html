@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'H-v4/fonts/icomoon/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'H-v4/css/owl.carousel.min.css' %}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'H-v4/css/bootstrap.min.css' %}">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'H-v4/css/style.css' %}">
+
+    <title>{% block title %}管理员面板{% endblock %}</title>
+</head>
+<body>
+    <div class="content">
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <script src="{% static 'H-v4/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'H-v4/js/popper.min.js' %}"></script>
+    <script src="{% static 'H-v4/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'H-v4/js/main.js' %}"></script>
+</body>
+</html>

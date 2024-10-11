@@ -1,0 +1,62 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />  
+    <style type="text/css">  
+        body, html {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}  
+        #allmap {position:absolute;left:0px;width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}  
+    </style>  
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=KyRER47el1c0CFlaPSby4nZzH5fw5Qop"></script>  
+    <title>车辆运行轨迹测试</title>  
+    <script src="http://c.cnzz.com/core.php"></script></head>  
+<body>  
+<div id="allmap"></div>  
+</body>  
+</html>  
+<script type="text/javascript">  
+  
+    var list = [{Long:106.652024,Lat:26.617221},{Long:106.652024,Lat:26.614221},{Long:106.654024,Lat:26.612221},{Long:106.657024,Lat:26.612221}];  
+    var listLast = list.length-1;  
+    // 百度地图API功能  
+    var map = new BMap.Map("allmap");    // 创建Map实例  
+    map.centerAndZoom(new BMap.Point(list[0].Long,list[0].Lat), 15);  // 初始化地图,设置中心点坐标和地图级别  
+    map.addControl(new BMap.MapTypeControl());   //添加地图类型控件  
+  
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放  
+  
+    setTimeout(drawIcon,500);  
+    var carMk;  
+    var myBeginIcon = new BMap.Icon("http://e.hiphotos.baidu.com/image/pic/item/7e3e6709c93d70cfaf72bca2f0dcd100bba12b90.jpg", new BMap.Size(25,37), {imageOffset: new BMap.Size(0, 0)});//人  
+    var myEndIcon = new BMap.Icon("http://b.hiphotos.baidu.com/image/pic/item/b58f8c5494eef01f534c096ae8fe9925bd317dc0.jpg", new BMap.Size(25,37), {imageOffset: new BMap.Size(0, 0)});//人  
+  
+    function drawGreenLine(i){  
+        var polyline = new BMap.Polyline([  
+            new BMap.Point(list[i].Long,list[i].Lat),//起始点的经纬度  
+            new BMap.Point(list[i+1].Long,list[i+1].Lat)//终点的经纬度  
+        ], {strokeColor:"green",//设置颜色  
+            strokeWeight:4, //宽度  
+            strokeOpacity:1});//透明度  
+        map.addOverlay(polyline);  
+    }  
+  
+    function drawIcon(){  
+        if(carMk){  
+            map.removeOverlay(carMk);  
+        }  
+        carMk2 = new BMap.Marker(  
+                new BMap.Point(list[0].Long,list[0].Lat),//起始点的经纬度  
+                {icon:myBeginIcon});  
+        map.addOverlay(carMk2);  
+  
+        carMk = new BMap.Marker(  
+                new BMap.Point(list[listLast].Long,list[listLast].Lat),//终点的经纬度  
+                {icon:myEndIcon});  
+        map.addOverlay(carMk);  
+  
+        for(var i=0;i<list.length-1;i++){  
+            drawGreenLine(i);  
+        }  
+  
+    }  
+</script>  

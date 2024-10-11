@@ -1,0 +1,116 @@
+{% extends 'admin-dashboard/base.html' %}
+{% load static %}
+
+{% block title %}會員管理{% endblock %}
+
+{% block content %}
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>會員列表</h5>
+                    <div class="ibox-tools">
+                        <a href="{% url 'member_create' %}" class="btn btn-primary btn-xs">新增用戶</a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                            <thead>
+                                <tr>
+                                    <th>頭像</th>
+                                    <th>ID</th>
+                                    <th>用戶名</th>
+                                    <th>電子郵件</th>
+                                    <th>全名</th>
+                                    <th>等級</th>
+                                    <th>註冊時間</th>
+                                    <th>狀態</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                <tr class="gradeX">
+                                    <td>
+                                        <img src="{{ user.get_avatar_url }}" alt="{{ user.username }}" class="img-circle" style="width: 50px; height: 50px;">
+                                    </td>
+                                    <td>{{ user.id }}</td>
+                                    <td>{{ user.username }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.full_name }}</td>
+                                    <td>{{ user.get_level_display }}</td>
+                                    <td>{{ user.date_joined|date:"Y-m-d H:i" }}</td>
+                                    <td>
+                                        <span class="label {% if user.is_active %}label-primary{% else %}label-danger{% endif %}">
+                                            {% if user.is_active %}啟用{% else %}停用{% endif %}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'member_detail' user.id %}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> 查看 </a>
+                                        <a href="{% url 'member_update' user.id %}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> 編輯 </a>
+                                        <a href="{% url 'member_delete' user.id %}" class="btn btn-white btn-sm"><i class="fa fa-trash"></i> 刪除 </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function() {
+        $('.dataTables-example').DataTable({
+            pageLength: 25,
+            responsive: true,
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                {extend: 'copy', text: '複製'},
+                {extend: 'csv', text: '匯出CSV'},
+                {extend: 'excel', title: '會員列表', text: '匯出Excel'},
+                {extend: 'pdf', title: '會員列表', text: '匯出PDF'},
+                {extend: 'print', text: '列印',
+                 customize: function (win){
+                    $(win.document.body).addClass('white-bg');
+                    $(win.document.body).css('font-size', '10px');
+                    $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                 }
+                }
+            ],
+            language: {
+                "sProcessing": "處理中...",
+                "sLengthMenu": "顯示 _MENU_ 項結果",
+                "sZeroRecords": "沒有匹配結果",
+                "sInfo": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+                "sInfoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+                "sInfoFiltered": "(由 _MAX_ 項結果過濾)",
+                "sInfoPostFix": "",
+                "sSearch": "搜尋:",
+                "sUrl": "",
+                "sEmptyTable": "表中數據為空",
+                "sLoadingRecords": "載入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首頁",
+                    "sPrevious": "上頁",
+                    "sNext": "下頁",
+                    "sLast": "末頁"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

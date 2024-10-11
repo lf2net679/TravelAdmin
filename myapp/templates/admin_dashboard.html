@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}管理員儀表板{% endblock %}
+
+{% block content %}
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <h5>管理員功能</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <a href="{% url 'member_list' %}" class="btn btn-primary" id="load-member-list">管理會員</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="member-list-container"></div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script>
+    $(document).ready(function() {
+        $('#load-member-list').on('click', function(e) {
+            e.preventDefault();
+            $.get($(this).attr('href'), function(data) {
+                $('#member-list-container').html(data);
+            });
+        });
+    });
+    </script>
+{% endblock %}

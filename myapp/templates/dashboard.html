@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section">管理员仪表板</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-wrap">
+                    <table class="table table-responsive-xl">
+                        <thead>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th>用户名</th>
+                                <th>邮箱</th>
+                                <th>全名</th>
+                                <th>状态</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="alert" role="alert">
+                                <td>
+                                    <label class="checkbox-wrap checkbox-primary">
+                                        <input type="checkbox" checked>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                                <td class="d-flex align-items-center">
+                                    <div class="img" style="background-image: url({{ user.get_avatar_url }});"></div>
+                                    <div class="pl-3 email">
+                                        <span>{{ user.username }}</span>
+                                        <span>添加时间: {{ user.date_joined|date:"Y-m-d H:i" }}</span>
+                                    </div>
+                                </td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.full_name }}</td>
+                                <td class="status"><span class="active">Active</span></td>
+                                <td>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <!-- 您可以在这里添加更多用户行 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

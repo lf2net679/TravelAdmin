@@ -1,0 +1,83 @@
+{% extends 'admin-dashboard/base.html' %}
+{% load static %}
+
+{% block title %}討論區{% endblock %}
+
+{% block content %}
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!-- 輪播圖 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    {% for carousel in carousels %}
+                    <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+                    {% endfor %}
+                </ol>
+                <div class="carousel-inner">
+                    {% for carousel in carousels %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <img class="d-block w-100" src="{{ carousel.image.url }}" alt="{{ carousel.title }}">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>{{ carousel.title }}</h5>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 精選文章 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>精選文章</h5>
+                </div>
+                <div class="ibox-content">
+                    {% for article in featured_articles %}
+                    <div class="article-item">
+                        <h3>{{ article.title }}</h3>
+                        <p>{{ article.content|truncatewords:50 }}</p>
+                        <small>作者: {{ article.author.username }} | 發布時間: {{ article.created_at|date:"Y-m-d H:i" }}</small>
+                    </div>
+                    {% empty %}
+                    <p>目前沒有精選文章。</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 精選商品排名 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>精選商品排名</h5>
+                </div>
+                <div class="ibox-content">
+                    <ol>
+                        {% for ranking in top_products %}
+                        <li>
+                            {{ ranking.product.name }} (得票數: {{ ranking.votes }})
+                        </li>
+                        {% empty %}
+                        <li>目前沒有商品排名。</li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

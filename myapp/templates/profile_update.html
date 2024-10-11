@@ -1,0 +1,94 @@
+{% extends 'admin-dashboard/base.html' %}
+{% load static %}
+
+{% block title %}更新個人資料{% endblock %}
+
+{% block content %}
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>更新個人資料</h5>
+                </div>
+                <div class="ibox-content">
+                    <form method="post" enctype="multipart/form-data" class="form-horizontal">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">電子郵件：</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">{{ user.email }}</p>
+                            </div>
+                        </div>
+                        {% for field in profile_form %}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{{ field.label }}</label>
+                                <div class="col-sm-10">
+                                    {% if field.name == 'avatar' %}
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                {{ field }}
+                                                {% if field.errors %}
+                                                    <span class="help-block m-b-none text-danger">{{ field.errors.0 }}</span>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <img id="avatar-preview" src="{{ user.get_avatar_url }}" alt="頭像預覽" class="img-circle" style="width: 100px; height: 100px;">
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        {{ field }}
+                                        {% if field.errors %}
+                                            <span class="help-block m-b-none text-danger">{{ field.errors.0 }}</span>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <h4>更改密碼</h4>
+                        {% for field in password_form %}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{{ field.label }}</label>
+                                <div class="col-sm-10">
+                                    {{ field }}
+                                    {% if field.errors %}
+                                        <span class="help-block m-b-none text-danger">{{ field.errors.0 }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-white" type="button" onclick="window.history.back();"><i class="fa fa-reply"></i> 取消</button>
+                                <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i> 儲存</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function() {
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    $('#avatar-preview').attr('src', e.target.result);
+                }
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        
+        $("#id_avatar").change(function() {
+            readURL(this);
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends 'admin-dashboard/base.html' %}
+{% load static %}
+
+{% block title %}收件箱{% endblock %}
+
+{% block content %}
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-3">
+            <!-- 左側導航保持不變 -->
+        </div>
+        <div class="col-lg-9 animated fadeInRight">
+            <div class="mail-box-header">
+                <h2>收件匣 ({{ unread_count }})</h2>
+            </div>
+            <div class="mail-box">
+                <table class="table table-hover table-mail">
+                    <tbody>
+                    {% for message in messages %}
+                    <tr class="{% if not message.is_read %}unread{% endif %} {% if message.sender.level == 'admin' %}highlight{% endif %}">
+                        <td class="mail-ontact">
+                            {% if message.sender.level == 'admin' %}
+                                管理員
+                            {% else %}
+                                {{ message.sender.email }}
+                            {% endif %}
+                        </td>
+                        <td class="mail-subject"><a href="{% url 'message_detail' message.id %}">{{ message.subject }}</a></td>
+                        <td class="text-right mail-date">{{ message.created_at|date:"Y-m-d H:i" }}</td>
+                        <td class="text-right">
+                            <a href="{% url 'delete_message' message.id %}" class="btn btn-xs btn-danger" onclick="return confirm('確定要刪除這條訊息嗎？');"><i class="fa fa-trash"></i> 刪除</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">您的收件箱中沒有訊息。</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function(){
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+
+        $('#select-all').on('ifChanged', function(event) {
+            $('.message-checkbox').iCheck(event.target.checked ? 'check' : 'uncheck');
+            updateDeleteButton();
+        });
+
+        $('.message-checkbox').on('ifChanged', function(event) {
+            updateDeleteButton();
+        });
+
+        function updateDeleteButton() {
+            var checkedCount = $('.message-checkbox:checked').length;
+            if (checkedCount > 0) {
+                $('#delete-selected').show();
+            } else {
+                $('#delete-selected').hide();
+            }
+        }
+
+        $('#delete-selected').click(function() {
+            var selectedIds = $('.message-checkbox:checked').map(function() {
+                return $(this).data('id');
+            }).get();
+
+            if (confirm('確定要刪除選中的 ' + selectedIds.length + ' 條訊息嗎？')) {
+                // 這裡添加刪除邏輯，可能需要發送 AJAX 請求到後端
+                console.log('刪除以下 ID 的訊息:', selectedIds);
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .highlight {
+        background-color: #ffffd0;
+    }
+</style>
+{% endblock %}

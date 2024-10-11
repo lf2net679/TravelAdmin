@@ -1,0 +1,26 @@
+{% extends 'admin-dashboard/base.html' %}
+{% load static %}
+
+{% block title %}確認刪除用戶{% endblock %}
+
+{% block content %}
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>確認刪除用戶</h5>
+                </div>
+                <div class="ibox-content">
+                    <p>您確定要刪除用戶 "{{ member.username }}" 嗎？此操作不可逆。</p>
+                    <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> 確認刪除</button>
+                        <a href="{% url 'member_list' %}" class="btn btn-white btn-sm"><i class="fa fa-reply"></i> 取消</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

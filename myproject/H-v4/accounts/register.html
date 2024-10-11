@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelFun - 用户注册</title>
+    <link href="../css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/animate.css" rel="stylesheet">
+    <link href="../css/style.css?v=4.1.0" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .register-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+            font-size: 48px;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="register-container">
+            <div class="text-center mb-4">
+                <i class="fa fa-plane logo"></i>
+                <h2>欢迎加入 TravelFun</h2>
+                <p class="text-muted">创建您的新账户，开始精彩旅程</p>
+            </div>
+            <form>
+                <div class="form-group mb-3">
+                    <input type="text" class="form-control" placeholder="用户名" required>
+                </div>
+                <div class="form-group mb-3">
+                    <input type="email" class="form-control" placeholder="电子邮箱" required>
+                </div>
+                <div class="form-group mb-3">
+                    <input type="password" class="form-control" placeholder="密码" required>
+                </div>
+                <div class="form-group mb-3">
+                    <input type="password" class="form-control" placeholder="确认密码" required>
+                </div>
+                <div class="form-group mb-3">
+                    <div class="checkbox i-checks">
+                        <label>
+                            <input type="checkbox" required><i></i> 我同意<a href="#">服务条款</a>和<a href="#">隐私政策</a>
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">注册</button>
+            </form>
+            <div class="text-center">
+                <p>已有账户？ <a href="../login.html">立即登录</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/jquery.min.js?v=2.1.4"></script>
+    <script src="../js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="../js/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
+</body>
+</html>

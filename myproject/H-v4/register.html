@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>TravelFun - 用户注册</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+    <script>if(window.top !== window.self){ window.top.location = window.location;}</script>
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .register-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+            font-size: 48px;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+    </style>
+
+</head>
+
+<body class="gray-bg">
+
+    <div class="container">
+        <div class="register-container">
+            <div class="text-center mb-4">
+                <i class="fas fa-plane-departure logo"></i>
+                <h2>欢迎加入 TravelFun</h2>
+                <p class="text-muted">创建您的新账户，开始精彩旅程</p>
+            </div>
+            <form action="/accounts/register/" method="GET">
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="用户名" required>
+                </div>
+                <div class="mb-3">
+                    <input type="email" class="form-control" placeholder="电子邮箱" required>
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" placeholder="密码" required>
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" placeholder="确认密码" required>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="agreeTerms" required>
+                    <label class="form-check-label" for="agreeTerms">我同意<a href="#">服务条款</a>和<a href="#">隐私政策</a></label>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">注册</button>
+            </form>
+            <div class="text-center mt-3">
+                <p>已有账户？ <a href="login.html">立即登录</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 全局js -->
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.6"></script>
+    <!-- iCheck -->
+    <script src="js/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
+
+    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+    <!--统计代码，可删除-->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
