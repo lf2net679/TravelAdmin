@@ -135,4 +135,7 @@ TravelAdmin 是一個綜合性的旅遊管理系統，為用戶提供全方位�
 感謝您使用 TravelAdmin 旅遊管理系統！
 
 ##圖片範例
-[訊息功能]([icture or gif url](https://github.com/lf2net679/TravelAdmin/blob/main/%E8%A8%8A%E6%81%AF%E5%8A%9F%E8%83%BD.png))
+
+![img](訊息功能.png)
+![img](畫面demo.png)
+![img](會員管理.png)
